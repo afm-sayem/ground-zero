@@ -1,0 +1,26 @@
+{
+  "name": "fullstack-es6",
+  "version": "0.0.1",
+  "description": "seed",
+  "main": "app.js",
+  "scripts": {
+    "start": "node --harmony app"
+  },
+  "author": "yourname",
+  "dependencies": {
+    "aws-sdk": "^2.4.0",
+    "bluebird": "^3.4.1",
+    "body-parser": "^1.15.1",
+    "compression": "^1.6.2",
+    "express": "^4.14.0",
+    "jwt-simple": "^0.5.0",
+    "knex": "^0.11.5",
+    "lodash": "^4.13.1",
+    "morgan": "^1.7.0",
+    "newrelic": "^1.28.1",
+    "objection": "^0.5.1",
+    "pg": "^5.1.0",
+    "request": "^2.72.0",
+    "serve-static": "^1.11.1"
+  }
+}
