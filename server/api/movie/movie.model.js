@@ -10,7 +10,7 @@ class Movie extends Model {
   }
 
   get posterUrl() {
-    return `http://s3-${config.aws.region}.amazonaws.com/${config.aws.bucket}/posters/${this.poster}`
+    return `http://s3-${config.aws.region}.amazonaws.com/${config.aws.bucket}/posters/${this.poster}`;
   }
 
   $formatJson(obj) {
@@ -31,7 +31,7 @@ class Movie extends Model {
         title: {type: 'string', minLength: 1, maxLength: 255},
         summary: {type: 'string'},
         poster: {type: 'string', minLength: 1, maxLength: 255},
-        released: {type: 'date', minLength: 1, maxLength: 255},
+        released: {type: 'date', minLength: 1, maxLength: 255}
       }
     };
   }
@@ -39,7 +39,7 @@ class Movie extends Model {
   static get relationMappings() {
     return {
       type: {
-        relation: Model.OneToOneRelation,
+        relation: Model.BelongsToOneRelation,
         modelClass: path.normalize(__dirname + '/../type/type.model'),
         join: {
           from: 'Movie.typeId',
@@ -47,7 +47,7 @@ class Movie extends Model {
         }
       },
       directorId: {
-        relation: Model.OneToOneRelation,
+        relation: Model.BelongsToOneRelation,
         modelClass: path.normalize(__dirname + '/../person/person.model'),
         join: {
           from: 'Movie.personId',
