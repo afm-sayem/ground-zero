@@ -1,5 +1,3 @@
-'use strict';
-
 const Model = require('objection').Model;
 const config = require('../../config/environment');
 
@@ -9,7 +7,7 @@ class User extends Model {
   }
 
   get avatarUrl() {
-    return `${config.facebook.graphAPI}/${this.facebook}/picture?type=large`
+    return `${config.facebook.graphAPI}/${this.facebook}/picture?type=large`;
   }
 
   $formatJson(obj) {
@@ -27,7 +25,7 @@ class User extends Model {
       properties: {
         id: {type: 'integer'},
         name: {type: 'string', minLength: 1, maxLength: 255},
-        facebook: {type: 'string', minLength: 1, maxLength: 255},
+        facebook: {type: 'string', minLength: 1, maxLength: 255}
       }
     };
   }
