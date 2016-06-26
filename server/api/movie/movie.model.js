@@ -46,11 +46,11 @@ class Movie extends Model {
           to: 'Type.id'
         }
       },
-      directorId: {
+      director: {
         relation: Model.BelongsToOneRelation,
         modelClass: path.normalize(__dirname + '/../person/person.model'),
         join: {
-          from: 'Movie.personId',
+          from: 'Movie.directorId',
           to: 'Person.id'
         }
       }

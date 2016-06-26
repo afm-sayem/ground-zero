@@ -1,11 +1,12 @@
 'use strict';
 
-const  express = require('express');
+const express = require('express');
 const controller = require('./movie.controller');
+const processQuery = require('../../components/utilities').processQuery;
 
 const router = express.Router();
 
-router.get('/', controller.index);
+router.get('/', processQuery, controller.index);
 router.get('/:id', controller.show);
 router.post('/', controller.create);
 router.put('/:id', controller.update);
