@@ -1,11 +1,10 @@
-'use strict';
+const express = require('express');
+const controller = require('./type.controller');
+const processQuery = require('../../components/utilities').processQuery;
 
-var express = require('express');
-var controller = require('./type.controller');
+const router = express.Router();
 
-var router = express.Router();
-
-router.get('/', controller.index);
+router.get('/', processQuery, controller.index);
 router.get('/:id', controller.show);
 router.post('/', controller.create);
 router.put('/:id', controller.update);
