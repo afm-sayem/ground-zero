@@ -1,9 +1,10 @@
-var express = require('express');
-var controller = require('./person.controller');
+const express = require('express');
+const controller = require('./person.controller');
+const processQuery = require('../../components/utilities').processQuery;
 
-var router = express.Router();
+const router = express.Router();
 
-router.get('/', controller.index);
+router.get('/', processQuery, controller.index);
 router.get('/:id', controller.show);
 router.post('/', controller.create);
 router.put('/:id', controller.update);
