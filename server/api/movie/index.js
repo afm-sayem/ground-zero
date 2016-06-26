@@ -1,5 +1,3 @@
-'use strict';
-
 const express = require('express');
 const controller = require('./movie.controller');
 const processQuery = require('../../components/utilities').processQuery;

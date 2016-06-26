@@ -1,6 +1,9 @@
-function responseHandler(response, object, error, meta) {
+function responseHandler(error, response, status, object, meta) {
   if (error) {
     return response.status(400).send({error: error});
+  }
+  if (object === void 0) {
+    return response.status(404).send({message: 'Not Found'});
   }
   let json;
   try {
@@ -9,7 +12,7 @@ function responseHandler(response, object, error, meta) {
   } catch (e) {
     return response.status(422).send({error: e});
   }
-  return response.status(200).send(json);
+  return response.status(status || 200).send(json);
 }
 
 

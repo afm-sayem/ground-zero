@@ -1,7 +1,6 @@
 const Movie = require('./movie.model');
 const MovieSerializer = require('./movie.serializer');
 const responseHandler = require('../../components/utilities').responseHandler.bind(MovieSerializer);
-const isEmpty = require('lodash').isEmpty;
 const findQuery = require('objection-find');
 
 // allowed query parameters: include, page*, limit, filter, order and fields
@@ -10,15 +9,15 @@ const findQuery = require('objection-find');
 exports.create = function (req, res) {
   Movie.query()
     .insert(req.body)
-    .then(movie => responseHandler(res, movie))
-    .catch(err => responseHandler(res, null, err));
+    .then(movie => responseHandler(null, res, 201, movie))
+    .catch(err => responseHandler(err, res));
 };
 
 exports.update = function (req, res) {
   Movie.query()
     .patchAndFetchById(req.params.id, req.body)
-    .then(movie => responseHandler(res, movie))
-    .catch(err => responseHandler(res, null, err));
+    .then(movie => responseHandler(null, res, 200, movie))
+    .catch(err => responseHandler(err, res));
 };
 
 exports.index = function (req, res) {
@@ -28,8 +27,8 @@ exports.index = function (req, res) {
     .eager(req.query.include)
     .orderBy(req.query.sort.by, req.query.sort.order)
     .page(req.query.page.number, req.query.page.size)
-    .then(movies => responseHandler(res, movies.results, null, {total: movies.total}))
-    .catch(err => responseHandler(res, null, err));
+    .then(movies => responseHandler(null, res, 200, movies.results, {total: movies.total}))
+    .catch(err => responseHandler(err, res));
 };
 
 exports.show = function (req, res) {
@@ -37,19 +36,14 @@ exports.show = function (req, res) {
     .findById(req.params.id)
     .allowEager('[type, director]')
     .eager(req.query.eager)
-    .then(movie => {
-      if (isEmpty(movie)) {
-        return res.status(404).send({message: 'Not Found'});
-      }
-      return responseHandler(res, movie);
-    })
-    .catch(err => responseHandler(res, null, err));
+    .then(movie => responseHandler(null, res, 200, movie))
+    .catch(err => responseHandler(err, res));
 };
 
 exports.destroy = function (req, res) {
   Movie.query()
     .deleteById(req.params.id)
-    .then((movie) => responseHandler(res, movie))
-    .catch(err => responseHandler(res, null, err));
+    .then(() => res.status(204).send())
+    .catch(err => responseHandler(err, res));
 };
 
