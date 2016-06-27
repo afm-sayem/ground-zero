@@ -1,11 +1,8 @@
-'use strict';
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 if (process.env.NODE_ENV === 'production') {
   require('newrelic');
 }
 
-const _ = require('lodash');
-const Knex = require('knex');
 const path = require('path');
 const morgan = require('morgan');
 const compress = require('compression');
@@ -16,7 +13,7 @@ const knexConfig = require('./knexfile');
 const registerApi = require('./routes');
 const Model = require('objection').Model;
 
-const knex = Knex(knexConfig[process.env.NODE_ENV]);
+const knex = require('knex')(knexConfig[process.env.NODE_ENV]);
 Model.knex(knex);
 
 const app = express()
@@ -35,6 +32,6 @@ if (app.get('env') === 'production') {
 
 registerApi(app);
 
-const server = app.listen(process.env.PORT || 3000, function () {
+const server = app.listen(process.env.PORT || 3000, function() {
   console.log('Example app listening at port %s', server.address().port);
 });

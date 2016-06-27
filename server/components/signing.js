@@ -17,7 +17,7 @@ module.exports = function(req, res) {
 
   s3.getSignedUrl('putObject', s3_params, function(err, data) { 
     if (err) { 
-      console.log(err); 
+      return res.status(400).send({err: err});
     }
     else { 
       let return_data = {
@@ -27,5 +27,5 @@ module.exports = function(req, res) {
       res.send(return_data);
     } 
   });
-}
+};
 

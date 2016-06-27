@@ -1,7 +1,7 @@
 'use strict';
 const moment = require('moment');
 const jwt = require('jwt-simple');
-const User = require('../api/user/user.model');
+// const User = require('../api/user/user.model');
 const config = require('../config/environment');
 
 exports.createJWT = function (user) {
@@ -9,10 +9,10 @@ exports.createJWT = function (user) {
     sub: user.id,
     iat: moment().unix(),
     exp: moment().add(14, 'days').unix()
-  }
+  };
 
   return jwt.encode(payload, config.token);
-}
+};
 
 exports.ensureAuthenticated = function (req, res, next) {
   if (!req.headers.authorization) {
@@ -33,4 +33,4 @@ exports.ensureAuthenticated = function (req, res, next) {
   }
   req.user = payload.sub;
   next();
-}
+};
