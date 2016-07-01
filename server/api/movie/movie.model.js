@@ -53,6 +53,19 @@ class Movie extends Model {
           from: 'Movie.directorId',
           to: 'Person.id'
         }
+      },
+      actors: {
+        relation: Model.ManyToManyRelation,
+        modelClass: path.normalize(__dirname + '/../person/person.model'),
+        join: {
+          from: 'Movie.id',
+          through: {
+            from: 'Person_Movie.movieId',
+            to: 'Person_Movie.personId',
+            extra: ['character']
+          },
+          to: 'Person.id',
+        }
       }
     };
   }
