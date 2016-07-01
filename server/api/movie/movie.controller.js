@@ -1,6 +1,5 @@
 const Movie = require('./movie.model');
-const MovieSerializer = require('./movie.serializer');
-const responseHandler = require('../../components/utilities').responseHandler.bind(MovieSerializer);
+const responseHandler = require('../../components/utilities').responseHandler;
 const findQuery = require('objection-find');
 
 // allowed query parameters: include, page*, limit, filter, order and fields
@@ -13,6 +12,21 @@ exports.create = function (req, res) {
     .catch(err => responseHandler(err, res));
 };
 
+exports.addActor = function (req, res) {
+  Movie.query()
+    .findById(req.params.id)
+    .then(movie => {
+      if (movie === void 0) {
+        return responseHandler(new Error(), res, 404, movie);
+      }
+      movie
+        .$relatedQuery('actors')
+        .relate(req.body)
+        .then(actor => responseHandler(null, res, 200, actor))
+        .catch(err => responseHandler(err, res));
+    });
+};
+
 exports.update = function (req, res) {
   Movie.query()
     .patchAndFetchById(req.params.id, req.body)
@@ -22,19 +36,19 @@ exports.update = function (req, res) {
 
 exports.index = function (req, res) {
   findQuery(Movie)
-    .allowEager('[type, director]')
+    .allowEager('[type, director, actors]')
     .build(req.query.filter)
     .eager(req.query.include)
     .orderBy(req.query.sort.by, req.query.sort.order)
     .page(req.query.page.number, req.query.page.size)
-    .then(movies => responseHandler(null, res, 200, movies.results, {total: movies.total}))
+    .then(movies => responseHandler(null, res, 200, movies))
     .catch(err => responseHandler(err, res));
 };
 
 exports.show = function (req, res) {
   Movie.query()
     .findById(req.params.id)
-    .allowEager('[type, director]')
+    .allowEager('[type, director, actors]')
     .eager(req.query.eager)
     .then(movie => responseHandler(null, res, 200, movie))
     .catch(err => responseHandler(err, res));
