@@ -8,6 +8,19 @@ function responseHandler(error, response, status, data) {
   return response.status(status || 200).send(data);
 }
 
+function searchFilter(propertyRef, value, modelClass) {
+  // https://github.com/Vincit/objection-find/blob/master/API.md
+  var formatter = modelClass.formatter();
+  // Always use `formatter.wrap` for column references when building raw queries.
+  var columnName = formatter.wrap(propertyRef.fullColumnName());
+
+  return {
+    method: 'whereRaw',
+    // Always escape the user input when building raw queries.
+    // return values where the input is similar to the value of the column
+    args: ['similarity(' + columnName +', ?) > 0.2', value.toLowerCase()]
+  };
+}
 
 function processQuery(req, res, next) {
   function getPagination(page) {
@@ -34,5 +47,5 @@ function processQuery(req, res, next) {
   next();
 }
 
-module.exports = {responseHandler, processQuery};
+module.exports = {responseHandler, processQuery, searchFilter};
 
