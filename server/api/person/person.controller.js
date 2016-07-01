@@ -1,6 +1,5 @@
 const Person = require('./person.model');
-const PersonSerializer = require('./person.serializer');
-const responseHandler = require('../../components/utilities').responseHandler.bind(PersonSerializer);
+const responseHandler = require('../../components/utilities').responseHandler;
 const findQuery = require('objection-find');
 
 exports.create = function (req, res) {
@@ -23,7 +22,7 @@ exports.index = function (req, res) {
     .eager(req.query.include)
     .orderBy(req.query.sort.by, req.query.sort.order)
     .page(req.query.page.number, req.query.page.size)
-    .then(persons => responseHandler(null, res, 200, persons.results, {total: persons.total}))
+    .then(persons => responseHandler(null, res, 200, persons))
     .catch(err => responseHandler(err, res));
 };
 

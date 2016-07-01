@@ -1,6 +1,5 @@
 const User = require('./user.model');
-const UserSerializer = require('./user.serializer');
-const responseHandler = require('../../components/utilities').responseHandler.bind(UserSerializer);
+const responseHandler = require('../../components/utilities').responseHandler;
 const findQuery = require('objection-find');
 
 exports.update = function (req, res) {
@@ -16,7 +15,7 @@ exports.index = function (req, res) {
     .orderBy(req.query.sort.by, req.query.sort.order)
     .page(req.query.page.number, req.query.page.size)
     .where('id', req.params.id)
-    .then(types => responseHandler(null, res, 200, types.results, {total: types.total}))
+    .then(users => responseHandler(null, res, 200, users))
     .catch(err => responseHandler(err, res));
 };
 

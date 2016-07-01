@@ -1,6 +1,5 @@
 const Type = require('./type.model');
-const TypeSerializer = require('./type.serializer');
-const responseHandler = require('../../components/utilities').responseHandler.bind(TypeSerializer);
+const responseHandler = require('../../components/utilities').responseHandler;
 const findQuery = require('objection-find');
 
 exports.create = function (req, res) {
@@ -24,7 +23,7 @@ exports.index = function (req, res) {
     .orderBy(req.query.sort.by, req.query.sort.order)
     .page(req.query.page.number, req.query.page.size)
     .where('id', req.params.id)
-    .then(types => responseHandler(null, res, 200, types.results, {total: types.total}))
+    .then(types => responseHandler(null, res, 200, types))
     .catch(err => responseHandler(err, res));
 };
 
