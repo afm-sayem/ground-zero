@@ -1,9 +1,10 @@
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+const path = require('path');
 if (process.env.NODE_ENV === 'production') {
+  process.env.NEW_RELIC_HOME = path.resolve(__dirname(), '/config/newrilc.js');
   require('newrelic');
 }
 
-const path = require('path');
 const morgan = require('morgan');
 const compress = require('compression');
 const express = require('express');
@@ -22,6 +23,8 @@ const app = express()
   .use(compress())
   .set('json spaces', 2);
 
+// Ideally the API server should not be serving static content
+// Use something like fastly/cloudfront
 if (app.get('env') === 'production') {
   app.use(serveStatic(__dirname + '/public'));
   app.set('appPath', path.join(__dirname, '/public'));
