@@ -12,9 +12,9 @@ exports.index = function (req, res) {
   findQuery(User)
     .build(req.query.filter)
     .eager(req.query.include)
+    .omit('hash')
     .orderBy(req.query.sort.by, req.query.sort.order)
     .page(req.query.page.number, req.query.page.size)
-    .where('id', req.params.id)
     .then(users => responseHandler(null, res, 200, users))
     .catch(err => responseHandler(err, res));
 };
@@ -22,6 +22,7 @@ exports.index = function (req, res) {
 exports.show = function (req, res) {
   User.query()
     .findById(req.user)
+    .omit('hash')
     .then(user => res.send(user));
 };
 
