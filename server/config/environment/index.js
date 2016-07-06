@@ -1,4 +1,3 @@
-'use strict';
 const _ = require('lodash');
 
 let all = {
@@ -14,8 +13,8 @@ let all = {
     oauthUrl: 'https://graph.facebook.com/v2.5/oauth/access_token',
     graphUrl: 'https://graph.facebook.com/v2.5/me'
   },
-  token: process.env.TOKEN_SECRET || 'whatsthestorymorningglory'
-}
+  token: process.env.TOKEN_SECRET
+};
 module.exports = _.merge(
   all,
   require('./' + process.env.NODE_ENV + '.js') || {});

@@ -64,7 +64,7 @@ class Movie extends Model {
             to: 'Person_Movie.personId',
             extra: ['character']
           },
-          to: 'Person.id',
+          to: 'Person.id'
         }
       }
     };

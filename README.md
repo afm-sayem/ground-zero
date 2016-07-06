@@ -6,13 +6,14 @@ Includes:
 - JSON API compliant response (json-api-serializer)
 - Authorization(role based express middleware)
 - Logging(winston)
+- Validation
 - Search integration(PostgreSQL full text search)
 - Autocomplete(Postgres)
 - Websocket integration for messaging(socket.io)
 - Unit tests
 - Job scheduling(kue)
 - Documentation generation(jsdoc)
-- Deploy to various paas(heroku and digital ocean)
+- Deploy to iaas and paas(heroku and digital ocean)
 
 
 Environment Recommendation:

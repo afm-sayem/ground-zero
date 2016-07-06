@@ -7,9 +7,10 @@ const router = express.Router();
 router.get('/', processQuery, controller.index);
 router.get('/:id', controller.show);
 router.post('/', controller.create);
-router.post('/:id/actor', controller.addActor);
 router.put('/:id', controller.update);
 router.patch('/:id', controller.update);
 router.delete('/:id', controller.destroy);
+
+router.post('/:id/actor', controller.addActor);
 
 module.exports = router;

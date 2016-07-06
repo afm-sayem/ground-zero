@@ -1,6 +1,6 @@
 'use strict';
 
-const request = require('request');
+const request = require('request-promise');
 const jwt = require('jwt-simple');
 
 const User = require('../api/user/user.model');
@@ -36,7 +36,7 @@ exports.authenticate = function (req, res) {
               .findById(payload.sub)
               .then((user) => {
                 if (!user) {
-                  return res.status(400).send({message: 'User not found'});
+                  return res.status(404).send({message: 'User not found'});
                 }
                 createUser(res, profile.name, profile.id, 1);
               });
@@ -48,7 +48,7 @@ exports.authenticate = function (req, res) {
           }
         });
     });
-  })
+  });
 };
 
 function createUser(responseObj, name, facebook, role) {
@@ -56,7 +56,7 @@ function createUser(responseObj, name, facebook, role) {
     .insert({
       name: name,
       facebook: facebook,
-      role: role,
+      role: role
     })
   .then((user) => {
     return responseObj.send({token: authUtils.createJWT(user)});
