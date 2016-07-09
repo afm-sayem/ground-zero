@@ -22,7 +22,7 @@ class User extends Model {
   static get jsonSchema() {
     return {
       type: 'object',
-      required: ['name', 'facebook'],
+      required: ['email'],
 
       properties: {
         id: {type: 'integer'},
@@ -42,7 +42,7 @@ class User extends Model {
 
   /* Actions */
   authenticate(plainText) {
-    return bcrypt.compare(plainText, this.hash);
+    return bcrypt.compareAsync(plainText, this.hash);
   }
 
   static encryptPassword(password, saltRounds=10) {
