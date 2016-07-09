@@ -1,9 +1,11 @@
+const mailQueue = require('../config/queue').mailQueue;
+
 function responseHandler(error, response, status, data) {
   if (error === null && data === void 0) {
     return response.status(404).send({message: 'Not Found'});
   }
   if (error) {
-    return response.status(status || 400).send({error: error});
+    return response.status(status || 500).send({error: error.message});
   }
   return response.status(status || 200).send(data);
 }
@@ -47,5 +49,14 @@ function processQuery(req, res, next) {
   next();
 }
 
-module.exports = {responseHandler, processQuery, searchFilter};
+function sendMail(to, from, subject, content) {
+  return mailQueue.add({
+    from: from,
+    to: to,
+    subject: subject,
+    html: content
+  });
+}
+
+module.exports = {responseHandler, processQuery, searchFilter, sendMail};
 
