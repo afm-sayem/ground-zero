@@ -13,7 +13,14 @@ let all = {
     oauthUrl: 'https://graph.facebook.com/v2.5/oauth/access_token',
     graphUrl: 'https://graph.facebook.com/v2.5/me'
   },
-  token: process.env.TOKEN_SECRET
+  token: process.env.TOKEN_SECRET,
+  host: process.env.HOST,
+  port: process.env.PORT,
+  mail: {
+    smtp: process.env.SMTP_CONNECTION,
+    registration: process.env.REGISTRATION_EMAIL,
+    support: process.env.SUPPORT_EMAIL
+  }
 };
 module.exports = _.merge(
   all,
