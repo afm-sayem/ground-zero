@@ -1,4 +1,4 @@
-process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+require('dotenv').config();
 const path = require('path');
 if (process.env.NODE_ENV === 'production') {
   process.env.NEW_RELIC_HOME = path.resolve(__dirname(), '/config/newrilc.js');
