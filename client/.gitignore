@@ -1,9 +1,0 @@
-node_modules
-jspm_packages
-.idea
-.DS_STORE
-dist
-export
-build/reports
-coverage
-test/e2e/dist
