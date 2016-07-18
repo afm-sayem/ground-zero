@@ -13,10 +13,6 @@
   "author": "yourname",
   "dependencies": {
     "aws-sdk": "^2.4.0",
-    "babel-cli": "^6.10.1",
-    "babel-eslint": "^6.0.4",
-    "babel-preset-es2016": "^6.11.0",
-    "babel-preset-stage-3": "^6.11.0",
     "bcrypt": "^0.8.7",
     "bluebird": "^3.4.1",
     "body-parser": "^1.15.1",
@@ -40,6 +36,10 @@
     "uuid": "^2.0.2"
   },
   "devDependencies": {
+    "babel-cli": "^6.10.1",
+    "babel-eslint": "^6.0.4",
+    "babel-preset-es2016": "^6.11.0",
+    "babel-preset-stage-3": "^6.11.0",
     "eslint": "^3.1.0",
     "eslint-config-airbnb-base": "^4.0.2",
     "eslint-plugin-import": "^1.11.0"
