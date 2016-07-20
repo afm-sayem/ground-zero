@@ -13,10 +13,10 @@ class User extends Model {
   }
 
   $formatJson(obj) {
-    obj = super.$formatJson(obj);
-    obj.avatar = this.avatarUrl;
+    const formattedObj = super.$formatJson(obj);
+    formattedObj.avatar = this.avatarUrl;
 
-    return obj;
+    return formattedObj;
   }
 
   static get jsonSchema() {
@@ -25,19 +25,14 @@ class User extends Model {
       required: ['email'],
 
       properties: {
-        id: {type: 'integer'},
-        name: {type: 'string', minLength: 1, maxLength: 255},
-        hash: {type: 'string', minLength: 1, maxLength: 255},
-        email: {type: 'string', minLength: 1, maxLength: 255},
-        facebook: {type: 'string', minLength: 1, maxLength: 255},
-        google: {type: 'string', minLength: 1, maxLength: 255}
-      }
+        id: { type: 'integer' },
+        name: { type: 'string', minLength: 1, maxLength: 255 },
+        hash: { type: 'string', minLength: 1, maxLength: 255 },
+        email: { type: 'string', minLength: 1, maxLength: 255 },
+        facebook: { type: 'string', minLength: 1, maxLength: 255 },
+        google: { type: 'string', minLength: 1, maxLength: 255 },
+      },
     };
-  }
-
-  /* Validation */
-  isEmail() {
-
   }
 
   /* Actions */
@@ -45,7 +40,7 @@ class User extends Model {
     return bcrypt.compareAsync(plainText, this.hash);
   }
 
-  static encryptPassword(password, saltRounds=10) {
+  static encryptPassword(password, saltRounds = 10) {
     return bcrypt.hashAsync(password, saltRounds);
   }
 

@@ -1,13 +1,10 @@
-'use strict';
-
 const express = require('express');
 const controller = require('./user.controller');
-const authUtils = require('../../auth/authutils');
 const processQuery = require('../../components/utilities').processQuery;
 
 const router = express.Router();
 
-// router.use(authUtils.ensureAuthenticated); 
+// router.use(authUtils.ensureAuthenticated);
 
 router.get('/me', controller.show);
 router.get('/', processQuery, controller.index);
