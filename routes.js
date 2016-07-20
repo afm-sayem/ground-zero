@@ -1,5 +1,3 @@
-'use strict';
-require('objection').transaction;
 
 module.exports = (app) => {
   app.use('/api/movies', require('./api/movie'));
@@ -10,16 +8,11 @@ module.exports = (app) => {
   app.get('/components/get_signed_url', require('./components/signing'));
   app.use('/auth', require('./auth'));
 
-  app.use(function (err, req, res, next) {
+  app.use((err, req, res, next) => {
     if (err) {
       res.status(err.statusCode || err.status || 500).send(err.data || err.message || {});
     } else {
       next();
     }
   });
-
-  app.route('/')
-    .get((req, res) => {
-      res.sendfile(app.get('appPath') + '/index.html');
-    });
 };
