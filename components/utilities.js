@@ -1,12 +1,7 @@
 const mailQueue = require('../config/queue').mailQueue;
 
 function responseHandler(error, response, status, data) {
-  if (error === null && data === void 0) {
-    return response.status(404).send({message: 'Not Found'});
-  }
-  if (error) {
-    return response.status(status || 500).send({error: error.message});
-  }
+  if (error) return response.status(status || 500).send({error: error.message});
   return response.status(status || 200).send(data);
 }
 

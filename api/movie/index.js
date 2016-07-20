@@ -11,6 +11,6 @@ router.put('/:id', controller.update);
 router.patch('/:id', controller.update);
 router.delete('/:id', controller.destroy);
 
-router.post('/:id/actor', controller.addActor);
+router.post('/:id/artists', controller.addArtist);
 
 module.exports = router;

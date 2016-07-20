@@ -38,7 +38,7 @@ class Movie extends Model {
     return {
       type: {
         relation: Model.BelongsToOneRelation,
-        modelClass: path.normalize(`${__dirname}/../type/type.model'`),
+        modelClass: path.normalize(`${__dirname}/../type/type.model`),
         join: {
           from: 'Movie.typeId',
           to: 'Type.id',
@@ -52,7 +52,7 @@ class Movie extends Model {
           to: 'Person.id',
         },
       },
-      actors: {
+      artists: {
         relation: Model.ManyToManyRelation,
         modelClass: path.normalize(`${__dirname}/../person/person.model`),
         join: {
