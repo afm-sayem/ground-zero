@@ -2,7 +2,7 @@ require('dotenv').config();
 const mail = require('../config/mail');
 const mailQueue = require('../config/queue').mailQueue;
 
-mailQueue.process(async function (mailInfo, done){
+mailQueue.process(async function (mailInfo, done) {
   try {
     await mail.sendMail(mailInfo.data);
     return done();
