@@ -5,7 +5,7 @@ This is an API seed project put together using Express, [ObjectionJS](https://gi
  - Install [nvm](https://github.com/creationix/nvm) and then `nvm install node`.
  - Add `node_modules` to your path variable. For example for `zsh`, add this to your `.zshrc`: `export PATH="$PATH:./node_modules/.bin"`
  - Install project dependencies: `npm install`
- - Install [PostgreSQL](https://www.postgresql.org/download/).
+ - Install [PostgreSQL](https://www.postgresql.org/download/) and create a database.
  - Create an environment variable configuration file named `.env` in the project root and define the environment variables. Here's a [sample](https://gist.github.com/afm-sayem/b000849ffa2f38169c73d2c9bb165bc0).
  - Create tables: `knex migrate:latest`
  - Populate tables with data: `knex seed:run`
