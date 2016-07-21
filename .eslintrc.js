@@ -8,5 +8,8 @@ module.exports = {
   "extends": "airbnb-base",
   "parserOptions": {
     "sourceType": "module"
+  },
+  "rules": {
+    "generator-star-spacing": 0
   }
 };
