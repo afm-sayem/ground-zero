@@ -8,6 +8,7 @@ if (process.env.NODE_ENV === 'production') {
 const morgan = require('morgan');
 const compress = require('compression');
 const express = require('express');
+const compression = require('compression');
 const bodyParser = require('body-parser');
 const knexConfig = require('./knexfile');
 const registerApi = require('./routes');
@@ -22,6 +23,7 @@ const app = express()
   .use(compress())
   .set('json spaces', 2);
 
+app.use(compression());
 
 registerApi(app);
 
