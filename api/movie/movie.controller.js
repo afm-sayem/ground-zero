@@ -6,14 +6,14 @@ function create(req, res) {
   return Movie.query()
     .insert(req.body)
     .then(movie => utilities.responseHandler(null, res, 201, movie))
-    .catch(err => utilities.responseHandler(err, res, 500));
+    .catch(err => utilities.responseHandler(err, res));
 }
 
 function addArtist(req, res) {
   return Movie.query()
     .findById(req.params.id)
     .then(movie => {
-      if (!movie) return utilities.responseHandler(new Error('Not found'), res, 404, movie);
+      if (!movie) return utilities.throwNotFonud(res);
       return movie
         .$relatedQuery('artists')
         .relate(req.body)
@@ -38,7 +38,7 @@ function index(req, res) {
     .orderBy(req.query.sort.by, req.query.sort.order)
     .page(req.query.page.number, req.query.page.size)
     .then(movies => utilities.responseHandler(null, res, 200, movies))
-    .catch(err => utilities.responseHandler(err, res, 500));
+    .catch(err => utilities.responseHandler(err, res));
 }
 
 function show(req, res) {
@@ -47,17 +47,17 @@ function show(req, res) {
     .allowEager('[type, director, artists]')
     .eager(req.query.eager)
     .then(movie => {
-      if (!movie) return utilities.responseHandler(new Error('Not found'), res, 404);
+      if (!movie) return utilities.throwNotFonud(res);
       return utilities.responseHandler(null, res, 200, movie);
     })
-    .catch(err => utilities.responseHandler(err, res, 400));
+    .catch(err => utilities.responseHandler(err, res));
 }
 
 function destroy(req, res) {
   return Movie.query()
     .deleteById(req.params.id)
     .then(() => utilities.responseHandler(null, res, 204))
-    .catch(err => utilities.responseHandler(err, res, 500));
+    .catch(err => utilities.responseHandler(err, res));
 }
 
 module.exports = { create, update, addArtist, index, show, destroy };

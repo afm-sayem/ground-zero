@@ -1,5 +1,5 @@
 const User = require('./user.model');
-const responseHandler = require('../../components/utilities').responseHandler;
+const utilities = require('../../components/utilities');
 const findQuery = require('objection-find');
 
 function index(req, res) {
@@ -9,8 +9,8 @@ function index(req, res) {
     .omit('hash')
     .orderBy(req.query.sort.by, req.query.sort.order)
     .page(req.query.page.number, req.query.page.size)
-    .then(users => responseHandler(null, res, 200, users))
-    .catch(err => responseHandler(err, res));
+    .then(users => utilities.responseHandler(null, res, 200, users))
+    .catch(err => utilities.responseHandler(err, res));
 }
 
 function show(req, res) {
@@ -18,10 +18,10 @@ function show(req, res) {
     .findById(req.user)
     .omit('hash')
     .then(user => {
-      if (!user) return responseHandler(new Error('Not found'), res, 404);
-      return responseHandler(null, res, 200, user);
+      if (!user) return utilities.throwNotFound(res);
+      return utilities.responseHandler(null, res, 200, user);
     })
-    .catch(err => responseHandler(err, res));
+    .catch(err => utilities.responseHandler(err, res));
 }
 
 function update(req, res) {
@@ -34,8 +34,8 @@ function destroy(req, res) {
   return User.query()
     .delete()
     .where('id', req.params.id)
-    .then(() => responseHandler(null, res, 204))
-    .catch(err => responseHandler(err, res));
+    .then(() => utilities.responseHandler(null, res, 204))
+    .catch(err => utilities.responseHandler(err, res));
 }
 
 function unlink(req, res) {
