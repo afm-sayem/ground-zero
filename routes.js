@@ -1,12 +1,18 @@
+const movies = require('./api/movie');
+const persons = require('./api/person');
+const types = require('./api/type');
+const users = require('./api/user');
+const auth = require('./auth');
+const signedUrl = require('./components/signing');
 
 module.exports = (app) => {
-  app.use('/api/movies', require('./api/movie'));
-  app.use('/api/persons', require('./api/person'));
-  app.use('/api/types', require('./api/type'));
-  app.use('/api/users', require('./api/user'));
+  app.use('/movies', movies);
+  app.use('/persons', persons);
+  app.use('/types', types);
+  app.use('/users', users);
 
-  app.get('/components/get_signed_url', require('./components/signing'));
-  app.use('/auth', require('./auth'));
+  app.get('/components/get_signed_url', signedUrl);
+  app.use('/auth', auth);
 
   app.use((err, req, res, next) => {
     if (err) {
