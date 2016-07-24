@@ -2,6 +2,7 @@ const Promise = require('bluebird');
 const bcrypt = Promise.promisifyAll(require('bcrypt'));
 const Model = require('objection').Model;
 const config = require('../../config/environment');
+const schema = require('./user.schema.json');
 
 class User extends Model {
   static get tableName() {
@@ -20,19 +21,7 @@ class User extends Model {
   }
 
   static get jsonSchema() {
-    return {
-      type: 'object',
-      required: ['email'],
-
-      properties: {
-        id: { type: 'integer' },
-        name: { type: 'string', minLength: 1, maxLength: 255 },
-        hash: { type: 'string', minLength: 1, maxLength: 255 },
-        email: { type: 'string', minLength: 1, maxLength: 255 },
-        facebook: { type: 'string', minLength: 1, maxLength: 255 },
-        google: { type: 'string', minLength: 1, maxLength: 255 },
-      },
-    };
+    return schema;
   }
 
   /* Actions */

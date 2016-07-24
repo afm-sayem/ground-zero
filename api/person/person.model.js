@@ -1,5 +1,6 @@
-const Model = require('objection').Model;
 const path = require('path');
+const Model = require('objection').Model;
+const schema = require('./person.schema.json');
 
 class Person extends Model {
   static get tableName() {
@@ -7,15 +8,7 @@ class Person extends Model {
   }
 
   static get jsonSchema() {
-    return {
-      type: 'object',
-      required: ['name'],
-
-      properties: {
-        id: { type: 'integer' },
-        name: { type: 'string', minLength: 1, maxLength: 255 },
-      },
-    };
+    return schema;
   }
 
   static get relationshipMappings() {

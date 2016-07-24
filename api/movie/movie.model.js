@@ -1,6 +1,7 @@
+const path = require('path');
 const Model = require('objection').Model;
 const config = require('../../config/environment');
-const path = require('path');
+const schema = require('./movie.schema.json');
 
 class Movie extends Model {
   static get tableName() {
@@ -18,20 +19,7 @@ class Movie extends Model {
   }
 
   static get jsonSchema() {
-    return {
-      type: 'object',
-      required: ['title', 'directorId', 'typeId'],
-
-      properties: {
-        id: { type: 'integer' },
-        directorId: { type: 'integer' },
-        typeId: { type: 'integer' },
-        title: { type: 'string', minLength: 1, maxLength: 255 },
-        summary: { type: 'string' },
-        poster: { type: 'string', minLength: 1, maxLength: 255 },
-        released: { type: 'date', minLength: 1, maxLength: 255 },
-      },
-    };
+    return schema;
   }
 
   static get relationMappings() {
