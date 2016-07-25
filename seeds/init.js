@@ -1,25 +1,37 @@
-exports.seed = function(knex, Promise) {
-  return Promise.all([
-    knex('Movie').del()
-  ]).then(Promise.all([
-    knex('Type').del(),
-    knex('Person').del()
-  ]))
-  .then(() => Promise.all([
-    knex('Person').insert({name: 'Satyajit Ray'}),
-    knex('Person').insert({name: 'Subir Banarjee'}),
-    knex('Person').insert({name: 'Kanu Banarjee'}),
-    knex('Person').insert({name: 'Ritwik Ghatak'}),
-    knex('Person').insert({name: 'Kali Banarjee'}),
+require('dotenv').config();
+const jsf = require('json-schema-faker');
+const _ = require('lodash');
 
-    knex('Type').insert({name: 'Drama'}),
-    knex('Type').insert({name: 'Comedy'})
-  ]))
-  .then(() => Promise.all([ 
-    knex('Movie').insert({title: 'Pather Panchali', poster: 'pather_panchali.jpg', directorId: 1, typeId: 1}),
-    knex('Movie').insert({title: 'Aparijito', poster: 'aparajito.jpg', directorId: 1, typeId: 1}),
-    knex('Movie').insert({title: 'Goopy Gyne Bagha Byne', poster: 'goopy_bagha.jpg', directorId: 1, typeId: 2}),
-    knex('Movie').insert({title: 'Meghe Dhaka Tara', poster: 'meghe_dhaka.jpg', directorId: 2, typeId: 1}),
-    knex('Movie').insert({title: 'Ajantrik', poster: 'ajantrik.jpg', directorId: 2, typeId: 2})
-  ]));
+const movieSchema = require('../api/movie/movie.schema.json');
+const personSchema = require('../api/person/person.schema.json');
+const typeSchema = require('../api/type/type.schema.json');
+const userSchema = require('../api/user/user.schema.json');
+
+
+function getRecords(count, schema) {
+  return _.times(count, jsf.bind(void 0, schema));
+}
+
+// TODO: Prompt user before clearing out schemas
+// Delete ManyToMany and OneToMany tables automatically
+function truncate(knex, Promise, tables) {
+  return Promise.each(tables,
+      (table) => knex.raw(`TRUNCATE TABLE ${table} RESTART IDENTITY CASCADE`));
+}
+
+const tables = ['"Movie"', '"Person"', '"Type"', '"User"'];
+
+
+exports.seed = function (knex, Promise) {
+  const numberOfRecords = 10;
+  return truncate(knex, Promise, tables)
+    .then(() => Promise.all([
+      knex('Person').insert(getRecords(numberOfRecords, personSchema)),
+      knex('Type').insert(getRecords(numberOfRecords, typeSchema)),
+    ])
+    .then(() => Promise.all([
+      knex('Movie').insert(getRecords(numberOfRecords, movieSchema)),
+      knex('User').insert(getRecords(numberOfRecords, userSchema)),
+    ])));
 };
+
