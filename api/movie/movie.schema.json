@@ -3,12 +3,40 @@
   "required": ["title", "directorId", "typeId"],
 
   "properties": {
-    "id": { "type": "integer" },
-    "directorId": { "type": "integer" },
-    "typeId": { "type": "integer" },
-    "title": { "type": "string", "minLength": 1, "maxLength": 255 },
-    "summary": { "type": "string" },
-    "poster": { "type": "string", "minLength": 1, "maxLength": 255 },
-    "released": { "type": "date", "minLength": 1, "maxLength": 255 }
+    "directorId": {
+      "type": "integer",
+      "minimum": 1,
+      "faker": { "random.number": [{"max": 5, "min": 1}]}
+    },
+    "typeId": {
+      "type": "integer",
+      "minimum": 1,
+      "faker": { "random.number": [{"max": 5, "min": 1}]}
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 255,
+      "faker": "lorem.sentence"
+    },
+    "summary": {
+      "type": "string",
+      "maxLength": 5000,
+      "faker": "lorem.paragraph"
+    },
+    "poster": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 255,
+      "format": "uri",
+      "faker": "image.imageUrl"
+    },
+    "released": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 255,
+      "format": "date-time",
+      "faker": "date.past"
+    }
   }
 }

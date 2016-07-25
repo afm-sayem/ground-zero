@@ -3,11 +3,36 @@
   "required": ["email"],
 
   "properties": {
-    "id": { "type": "integer" },
-    "name": { "type": "string", "minLength": 1, "maxLength": 255 },
-    "hash": { "type": "string", "minLength": 1, "maxLength": 255 },
-    "email": { "type": "string", "minLength": 1, "maxLength": 255 },
-    "facebook": { "type": "string", "minLength": 1, "maxLength": 255 },
-    "google": { "type": "string", "minLength": 1, "maxLength": 255 }
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 255,
+      "faker": "name.findName"
+    },
+    "hash": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 255,
+      "chance": "hash"
+    },
+    "email": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 255,
+      "format": "email",
+      "faker": "internet.email"
+    },
+    "facebook": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 255,
+      "faker": "random.word"
+    },
+    "google": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 255,
+      "faker": "random.word"
+    }
   }
 }
