@@ -1,21 +1,10 @@
 const path = require('path');
 const Model = require('objection').Model;
-const config = require('../../config/environment');
 const schema = require('./movie.schema.json');
 
 class Movie extends Model {
   static get tableName() {
     return 'Movie';
-  }
-
-  get posterUrl() {
-    return `http://s3-${config.aws.region}.amazonaws.com/${config.aws.bucket}/posters/${this.poster}`;
-  }
-
-  $formatJson(obj) {
-    const formattedObj = super.$formatJson(obj);
-    formattedObj.poster = this.posterUrl;
-    return formattedObj;
   }
 
   static get jsonSchema() {

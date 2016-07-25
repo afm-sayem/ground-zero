@@ -9,15 +9,15 @@ class User extends Model {
     return 'User';
   }
 
-  get avatarUrl() {
-    return `${config.facebook.graphAPI}/${this.facebook}/picture?type=large`;
+  static get virtualAttributes() {
+    return ['avatar'];
   }
 
-  $formatJson(obj) {
-    const formattedObj = super.$formatJson(obj);
-    formattedObj.avatar = this.avatarUrl;
-
-    return formattedObj;
+  get avatar() {
+    if (this.facebook) {
+      return `${config.facebook.graphAPI}/${this.facebook}/picture?type=large`;
+    }
+    return undefined;
   }
 
   static get jsonSchema() {
