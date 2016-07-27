@@ -33,6 +33,7 @@
     "objection": "^0.5.5",
     "objection-find": "^0.1.1",
     "pg": "^6.0.3",
+    "raml2html": "^2.4.0",
     "redis": "^2.6.2",
     "request-promise": "^4.0.2",
     "serve-static": "^1.11.1",

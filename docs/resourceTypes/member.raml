@@ -1,0 +1,16 @@
+get:
+  description: Retreive <<objectType>> by objectId
+  responses:
+    200:
+      body:
+        application/json:
+          schema: <<objectType>>
+put:
+  description: Update <<objectType>>
+  securedBy: [ token ]
+  body:
+    application/json:
+      schema: <<objectType>>
+delete:
+  description: Delete <<objectType>>
+  securedBy: [ token ]

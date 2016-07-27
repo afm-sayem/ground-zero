@@ -1,0 +1,28 @@
+  get:
+    is: [query]
+    description: Get all <<resourceName>>, optionally filtered
+    responses:
+      200:
+        body:
+          application/json:
+            schema: |
+                {  "$schema": "http://json-schema.org/draft-04/schema",
+                  "type": "object",
+                  "description": "A collection of users",
+                  "properties": {
+                    "total":  { "type": "integer", "required": true },
+                    "results":  {
+                      "type": "array"
+                    }
+                  }
+                }
+  post:
+    securedBy: [ token ]
+    body:
+      application/json:
+        schema: <<resourceName>>
+    responses:
+      201:
+        body:
+          application/json:
+            schema: <<resourceName>>

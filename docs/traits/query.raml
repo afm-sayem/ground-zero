@@ -1,0 +1,35 @@
+queryParameters: 
+  where:
+    type: string
+    description: |
+      Provides query parameters. The value should be JSON.
+
+      |Key         |Operation                                    |
+      |------------|---------------------------------------------|
+      |:in         |Contains any of the value in array           |
+      |:eq         |Equal To                                     |
+      |:gt         |Greater Than                                 |
+      |:gte        |Greater Than Or Equal To                     |
+      |:lt         |Less than                                    |
+      |:lte        |Less than or equal                           |
+      |:search     |If the property contains the string value    |
+      |:like       |Match operator, where there is no text index |
+      |:isNull     |Value for the key does not exist in the db   |
+      |:isNotNull  |The key exists in the database               |
+
+    example: api.seeds.com/movies?where[title:search]=Martian
+  include:
+    description: Include related properties of the object. This is an alternative way to fetch a relevant data in a single call
+    example: api.seeds.com/movies?where[release:lt]=20131223&include=[artists]
+  order:
+    description: Specifies a field to sort by. Use '-' to obtain descending order
+    example: order=-title
+  page:
+    description: |
+      Pagination parameter. Takes two attributes:
+      `page.size` determines maximum number of items in the result
+      `page.skip` the number of pages to skip to when returning the result
+    type: string
+  fields:
+    description: Restricts returned fields.
+    example: fields=title,poster

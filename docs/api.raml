@@ -1,0 +1,64 @@
+#%RAML 0.8
+title: seedserver
+version: working draft
+baseUri: https://api.seed.com
+mediaType: application/json
+securitySchemes:
+  - token: !include securitySchema/token.raml
+schemas:
+  - user: !include ../api/user/user.schema.json
+  - movie: !include ../api/movie/movie.schema.json
+  - person: !include ../api/person/person.schema.json
+  - type: !include ../api/type/type.schema.json
+resourceTypes:
+  - collection: !include resourceTypes/collection.raml
+  - member: !include resourceTypes/member.raml
+traits:
+  - query: !include traits/query.raml
+
+# Users
+/users:
+  get:
+    securedBy: [ token ]
+    is: [ query ]
+    responses:
+      200:
+        body:
+          application/json:
+            schema: user
+  /{objectId}:
+    type: {member:{objectType: user}}
+    /favorites:
+      type: {collection: {resourceName: movie}}
+
+# Types
+/types:
+  type: {collection: {resourceName: type}}
+  /{objectId}:
+    type: {member: {objectType: type}}
+
+# Movies
+/movies:
+  type: {collection: {resourceName: movie}}
+  /{objectId}:
+    type: {member: {objectType: movie}}
+    /artists:
+      type: {collection: {resourceName: person}}
+      /{objectId}:
+        type: {member: {objectType: person}}
+
+# Artists
+/artists:
+  type: {collection: {resourceName: person}}
+  /{objectId}:
+    type: {member: {objectType: person}}
+    /movies:
+      type: {collection: {resourceName: movie}}
+      /{objectId}:
+        type: {member: {objectType: movie}}
+
+documentation:
+  - title: Headline
+    content: !include docs/headline.md
+  - title: Authentication
+    content: !include docs/authentication.md
