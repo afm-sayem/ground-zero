@@ -1,18 +1,8 @@
 const Queue = require('bull');
-const url = require('url');
+const config = require('./environment');
 
 exports.createQueue = function (name) {
-  let redisConfig;
-  let options = {};
-  try {
-    redisConfig = url.parse(process.env.REDIS_URL);
-    if (redisConfig.auth) {
-      options.password = redisConfig.auth.split(':')[1];
-    }
-    return Queue(name, redisConfig.port, redisConfig.hostname, redisConfig.options);
-  } catch (e) {
-    throw new Error('Malformed redis url');
-  }
+  return new Queue(name, config.redis.port, config.redis.host, { password: config.redis.password });
 };
 
 exports.mailQueue = exports.createQueue('mail');
