@@ -19,19 +19,18 @@ function truncate(knex, Promise, tables) {
       (table) => knex.raw(`TRUNCATE TABLE ${table} RESTART IDENTITY CASCADE`));
 }
 
-const tables = ['"Movie"', '"Person"', '"Type"', '"User"'];
-
+const tables = ['movie', 'person', 'type', 'user'];
 
 exports.seed = function (knex, Promise) {
   const numberOfRecords = 10;
   return truncate(knex, Promise, tables)
     .then(() => Promise.all([
-      knex('Person').insert(getRecords(numberOfRecords, personSchema)),
-      knex('Type').insert(getRecords(numberOfRecords, typeSchema)),
+      knex('person').insert(getRecords(numberOfRecords, personSchema)),
+      knex('type').insert(getRecords(numberOfRecords, typeSchema)),
     ])
     .then(() => Promise.all([
-      knex('Movie').insert(getRecords(numberOfRecords, movieSchema)),
-      knex('User').insert(getRecords(numberOfRecords, userSchema)),
+      knex('movie').insert(getRecords(numberOfRecords, movieSchema)),
+      knex('user').insert(getRecords(numberOfRecords, userSchema)),
     ])));
 };
 

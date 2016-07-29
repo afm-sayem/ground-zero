@@ -1,9 +1,9 @@
 
-exports.up = function(knex) {
+exports.up = function (knex) {
   // alter user table to add email(unique), hash, salt, google
   // https://github.com/tgriesser/knex/issues/46
   return knex.schema
-    .table('User', function (table) {
+    .table('user', (table) => {
       table.string('hash');
       table.string('salt');
       table.string('email').unique();
@@ -11,9 +11,9 @@ exports.up = function(knex) {
     });
 };
 
-exports.down = function(knex) {
+exports.down = function (knex) {
   return knex.schema
-    .table('User', function (table) {
+    .table('user', (table) => {
       table.dropColumns('hash', 'salt', 'email', 'google');
     });
 };
