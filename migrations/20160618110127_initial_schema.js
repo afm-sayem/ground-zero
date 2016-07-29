@@ -1,24 +1,24 @@
 
 exports.up = function (knex) {
   return knex.schema
-    .createTable('Person', function (table) {
+    .createTable('person', (table) => {
       table.increments('id').primary();
       table.string('name');
     })
-    .createTable('Type', function (table) {
+    .createTable('type', (table) => {
       table.increments('id').primary();
       table.string('name');
     })
-    .createTable('Movie', function (table) {
+    .createTable('movie', (table) => {
       table.increments('id').primary();
-      table.integer('directorId').unsigned().references('id').inTable('Person');
-      table.integer('typeId').unsigned().references('id').inTable('Type');
+      table.integer('director_id').unsigned().references('id').inTable('person');
+      table.integer('type_id').unsigned().references('id').inTable('type');
       table.string('title');
       table.text('summary');
       table.string('poster');
       table.date('released');
     })
-    .createTable('User', function (table) {
+    .createTable('user', (table) => {
       table.increments('id').primary();
       table.string('name');
       table.string('facebook');
@@ -27,8 +27,8 @@ exports.up = function (knex) {
 
 exports.down = function (knex) {
   return knex.schema
-    .dropTableIfExists('User')
-    .dropTableIfExists('Movie')
-    .dropTableIfExists('Person')
-    .dropTableIfExists('Type')
+    .dropTableIfExists('user')
+    .dropTableIfExists('movie')
+    .dropTableIfExists('person')
+    .dropTableIfExists('type');
 };

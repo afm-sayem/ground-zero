@@ -6,7 +6,7 @@ const schema = require('./user.schema.json');
 
 class User extends Model {
   static get tableName() {
-    return 'User';
+    return 'user';
   }
 
   static get virtualAttributes() {

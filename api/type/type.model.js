@@ -3,7 +3,7 @@ const schema = require('./type.schema.json');
 
 class Type extends Model {
   static get tableName() {
-    return 'Type';
+    return 'type';
   }
 
   static get jsonSchema() {

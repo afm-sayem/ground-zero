@@ -4,7 +4,7 @@ const schema = require('./person.schema.json');
 
 class Person extends Model {
   static get tableName() {
-    return 'Person';
+    return 'person';
   }
 
   static get jsonSchema() {
@@ -17,13 +17,13 @@ class Person extends Model {
         relation: Model.ManyToManyRelation,
         modelClass: path.normalize(`${__dirname}/../movie/movie.model`),
         join: {
-          from: 'Person.id',
+          from: 'person.id',
           through: {
-            from: 'Person_Movie.personId',
-            to: 'Person_Movie.movieId',
+            from: 'person_movie.person_id',
+            to: 'person_movie.movie_id',
             extra: ['character'],
           },
-          to: 'Movie.id',
+          to: 'movie.id',
         },
       },
     };

@@ -4,7 +4,7 @@ const schema = require('./movie.schema.json');
 
 class Movie extends Model {
   static get tableName() {
-    return 'Movie';
+    return 'movie';
   }
 
   static get jsonSchema() {
@@ -17,29 +17,29 @@ class Movie extends Model {
         relation: Model.BelongsToOneRelation,
         modelClass: path.normalize(`${__dirname}/../type/type.model`),
         join: {
-          from: 'Movie.typeId',
-          to: 'Type.id',
+          from: 'movie.type_id',
+          to: 'type.id',
         },
       },
       director: {
         relation: Model.BelongsToOneRelation,
         modelClass: path.normalize(`${__dirname}/../person/person.model`),
         join: {
-          from: 'Movie.directorId',
-          to: 'Person.id',
+          from: 'movie.director_id',
+          to: 'person.id',
         },
       },
       artists: {
         relation: Model.ManyToManyRelation,
         modelClass: path.normalize(`${__dirname}/../person/person.model`),
         join: {
-          from: 'Movie.id',
+          from: 'movie.id',
           through: {
-            from: 'Person_Movie.movieId',
-            to: 'Person_Movie.personId',
+            from: 'person_movie.movie_id',
+            to: 'person_movie.person_id',
             extra: ['character'],
           },
-          to: 'Person.id',
+          to: 'person.id',
         },
       },
     };
