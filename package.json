@@ -7,17 +7,24 @@
     "dev": "nodemon app.js --exec babel-node",
     "postinstall": "npm run build",
     "start": "node dist/app.js",
-    "build": "rm -rf dist && babel . --ignore node_modules -d dist",
+    "build": "rm -rf dist && babel . --ignore node_modules --copy-files -d dist",
     "serve": "node dist/app.js"
   },
   "author": "yourname",
+  "engines": {
+    "node": "6.3.1"
+  },
   "dependencies": {
     "aws-sdk": "^2.4.9",
+    "babel-cli": "^6.11.4",
+    "babel-preset-es2016": "^6.11.3",
+    "babel-preset-stage-3": "^6.11.0",
     "bcrypt": "^0.8.7",
     "bluebird": "^3.4.1",
     "body-parser": "^1.15.2",
     "bull": "^1.0.0",
     "compression": "^1.6.2",
+    "cors": "^2.7.1",
     "dotenv": "^2.0.0",
     "express": "^4.14.0",
     "foreman": "^1.4.1",
@@ -40,10 +47,7 @@
     "uuid": "^2.0.2"
   },
   "devDependencies": {
-    "babel-cli": "^6.11.4",
     "babel-eslint": "^6.1.2",
-    "babel-preset-es2016": "^6.11.3",
-    "babel-preset-stage-3": "^6.11.0",
     "eslint": "^3.1.1",
     "eslint-config-airbnb-base": "^5.0.0",
     "eslint-plugin-import": "^1.11.1",
