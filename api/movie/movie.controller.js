@@ -9,17 +9,18 @@ function create(req, res) {
     .catch(err => utilities.responseHandler(err, res));
 }
 
-function addArtist(req, res) {
-  return Movie.query()
-    .findById(req.params.id)
-    .then(movie => {
-      if (!movie) return utilities.throwNotFonud(res);
-      return movie
-        .$relatedQuery('artists')
-        .relate(req.body)
-        .then(artist => utilities.responseHandler(null, res, 200, artist))
-        .catch(err => utilities.responseHandler(err, res));
-    });
+async function addArtist(req, res) {
+  try {
+    const movie = await Movie.query()
+    .findById(req.params.id);
+    if (!movie) return utilities.throwNotFonud(res);
+    await movie
+      .$relatedQuery('artists')
+      .relate(req.body);
+    return utilities.responseHandler(null, res, 201);
+  } catch (err) {
+    return utilities.responseHandler(err, res);
+  }
 }
 
 async function addReview(req, res) {
