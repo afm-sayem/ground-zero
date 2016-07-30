@@ -6,6 +6,7 @@ const movieSchema = require('../api/movie/movie.schema.json');
 const personSchema = require('../api/person/person.schema.json');
 const typeSchema = require('../api/type/type.schema.json');
 const userSchema = require('../api/user/user.schema.json');
+const reviewSchema = require('../api/review/review.schema.json');
 
 
 function getRecords(count, schema) {
@@ -19,7 +20,7 @@ function truncate(knex, Promise, tables) {
       (table) => knex.raw(`TRUNCATE TABLE ${table} RESTART IDENTITY CASCADE`));
 }
 
-const tables = ['movie', 'person', 'type', 'user'];
+const tables = ['movie', 'person', 'type', '"user"', 'review'];
 
 exports.seed = function (knex, Promise) {
   const numberOfRecords = 10;
@@ -27,10 +28,13 @@ exports.seed = function (knex, Promise) {
     .then(() => Promise.all([
       knex('person').insert(getRecords(numberOfRecords, personSchema)),
       knex('type').insert(getRecords(numberOfRecords, typeSchema)),
-    ])
+    ]))
     .then(() => Promise.all([
       knex('movie').insert(getRecords(numberOfRecords, movieSchema)),
       knex('user').insert(getRecords(numberOfRecords, userSchema)),
-    ])));
+    ]))
+    .then(() => Promise.all([
+      knex('review').insert(getRecords(numberOfRecords, reviewSchema)),
+    ]));
 };
 
