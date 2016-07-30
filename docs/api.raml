@@ -10,6 +10,7 @@ schemas:
   - movie: !include ../api/movie/movie.schema.json
   - person: !include ../api/person/person.schema.json
   - type: !include ../api/type/type.schema.json
+  - review: !include ../api/review/review.schema.json
 resourceTypes:
   - collection: !include resourceTypes/collection.raml
   - member: !include resourceTypes/member.raml
@@ -46,6 +47,10 @@ traits:
       type: {collection: {resourceName: person}}
       /{objectId}:
         type: {member: {objectType: person}}
+    /review:
+      type: {collection: {resourceName: review}}
+      /{objectId}:
+        type: {member: {objectType: review}}
 
 # Artists
 /artists:
