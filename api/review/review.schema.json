@@ -1,0 +1,25 @@
+{
+  "type": "object",
+  "required": ["title", "recommended", "movie_id"],
+
+  "properties": {
+    "title": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 255,
+      "faker": "lorem.sentence"
+    },
+    "movie_id": {
+      "type": "integer",
+      "faker": { "random.number": [{"max": 5, "min": 1}]}
+    },
+    "recommended": {
+      "type": "boolean",
+      "random": "random.boolean"
+    },
+    "description": {
+      "type": "string",
+      "faker": "lorem.paragraph"
+    }
+  }
+}
