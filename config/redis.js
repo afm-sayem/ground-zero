@@ -6,7 +6,8 @@ Promise.promisifyAll(redis.RedisClient.prototype);
 Promise.promisifyAll(redis.Multi.prototype);
 
 const client = redis.createClient(config.redis.port, config.redis.host);
-client.auth(config.redis.password);
+if (config.redis.password) client.auth(config.redis.password);
+
 client.on('error', (e) => e);
 
 module.exports = client;

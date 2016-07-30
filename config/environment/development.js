@@ -1,3 +1,10 @@
+const url = require('url');
+
+const redisUrl = url.parse(process.env.REDIS_URL);
+
 module.exports = {
-  redisUrl: process.env.REDIS_URL
+  redis: {
+    host: redisUrl.hostname,
+    port: redisUrl.port,
+  },
 };
