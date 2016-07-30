@@ -22,6 +22,20 @@ function addArtist(req, res) {
     });
 }
 
+async function addReview(req, res) {
+  try {
+    const movie = await Movie.query()
+      .findById(req.params.id);
+    if (!movie) return utilities.throwNotFonud(res);
+
+    await movie.$relatedQuery('reviews')
+      .insert(req.body);
+    return utilities.responseHandler(null, res, 201);
+  } catch (err) {
+    return utilities.responseHandler(err, res);
+  }
+}
+
 function update(req, res) {
   return Movie.query()
     .patchAndFetchById(req.params.id, req.body)
@@ -31,7 +45,7 @@ function update(req, res) {
 
 function index(req, res) {
   return findQuery(Movie)
-    .allowEager('[type, director, artists]')
+    .allowEager('[type, director, artists, reviews]')
     .registerFilter('search', utilities.searchFilter)
     .build(req.query.where)
     .eager(req.query.include)
@@ -44,7 +58,7 @@ function index(req, res) {
 function show(req, res) {
   return Movie.query()
     .findById(req.params.id)
-    .allowEager('[type, director, artists]')
+    .allowEager('[type, director, artists, reviews]')
     .eager(req.query.eager)
     .then(movie => {
       if (!movie) return utilities.throwNotFonud(res);
@@ -60,4 +74,4 @@ function destroy(req, res) {
     .catch(err => utilities.responseHandler(err, res));
 }
 
-module.exports = { create, update, addArtist, index, show, destroy };
+module.exports = { create, update, addArtist, index, show, destroy, addReview };

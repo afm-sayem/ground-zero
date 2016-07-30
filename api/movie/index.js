@@ -12,5 +12,6 @@ router.patch('/:id', controller.update);
 router.delete('/:id', controller.destroy);
 
 router.post('/:id/artists', controller.addArtist);
+router.post('/:id/reviews', controller.addReview);
 
 module.exports = router;

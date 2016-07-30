@@ -42,6 +42,14 @@ class Movie extends Model {
           to: 'person.id',
         },
       },
+      reviews: {
+        relation: Model.HasManyRelation,
+        modelClass: path.normalize(`${__dirname}/../review/review.model`),
+        join: {
+          from: 'movie.id',
+          to: 'review.movie_id',
+        },
+      },
     };
   }
 }
