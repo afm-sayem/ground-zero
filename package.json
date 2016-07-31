@@ -35,7 +35,6 @@
     "lodash": "^4.14.0",
     "moment": "^2.14.1",
     "morgan": "^1.7.0",
-    "newrelic": "^1.28.3",
     "nodemailer": "^2.5.0",
     "nodemailer-mandrill-transport": "^1.1.0",
     "objection": "^0.5.5",

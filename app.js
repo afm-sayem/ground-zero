@@ -1,5 +1,4 @@
 require('dotenv').config();
-if (process.env.NODE_ENV === 'production') require('newrelic');
 
 const morgan = require('morgan');
 const compress = require('compression');
