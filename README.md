@@ -3,7 +3,7 @@
 
 API seed project put together using Express, [ObjectionJS](https://github.com/Vincit/objection.js) and PostgreSQL.
 
-Try the api with [sample requests](https://github.com/afm-sayem/api-server-seed/wiki/Sample-API-Requests)
+Try the api with some [sample requests](https://github.com/afm-sayem/api-server-seed/wiki/Sample-API-Requests)
 
 ####Features:
 
