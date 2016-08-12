@@ -1,14 +1,17 @@
 const express = require('express');
-const controller = require('./type.controller');
+const Type = require('./type.model');
+const BaseController = require('../core/base.controller');
 const processQuery = require('../../components/utilities').processQuery;
 
-const router = express.Router();
+const controller = new BaseController(Type);
 
-router.get('/', processQuery, controller.index);
-router.get('/:id', controller.show);
-router.post('/', controller.create);
-router.put('/:id', controller.update);
-router.patch('/:id', controller.update);
-router.delete('/:id', controller.destroy);
+const router = new express.Router();
+
+router.get('/', processQuery, controller.index.bind(controller));
+router.get('/:id', controller.show.bind(controller));
+router.post('/', controller.create.bind(controller));
+router.put('/:id', controller.update.bind(controller));
+router.patch('/:id', controller.update.bind(controller));
+router.delete('/:id', controller.destroy.bind(controller));
 
 module.exports = router;
