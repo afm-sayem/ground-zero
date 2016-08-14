@@ -13,8 +13,8 @@ const artistController = new ArtistController(Artist);
 const reviewController = new ReviewController(Review);
 
 const router = new express.Router();
-const artistRouter = new express.Router({mergeParams: true});
-const reviewRouter = new express.Router({mergeParams: true});
+const artistRouter = new express.Router({ mergeParams: true });
+const reviewRouter = new express.Router({ mergeParams: true });
 
 router.get('/', processQuery, controller.index.bind(controller));
 router.get('/:id', controller.show.bind(controller));
