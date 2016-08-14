@@ -27,7 +27,7 @@ traits:
         body:
           application/json:
             schema: user
-  /{objectId}:
+  /{userId}:
     type: {member:{objectType: user}}
     /favorites:
       type: {collection: {resourceName: movie}}
@@ -35,31 +35,31 @@ traits:
 # Types
 /types:
   type: {collection: {resourceName: type}}
-  /{objectId}:
+  /{typeId}:
     type: {member: {objectType: type}}
 
 # Movies
 /movies:
   type: {collection: {resourceName: movie}}
-  /{objectId}:
+  /{movieId}:
     type: {member: {objectType: movie}}
     /artists:
       type: {collection: {resourceName: person}}
-      /{objectId}:
+      /{artistId}:
         type: {member: {objectType: person}}
-    /review:
+    /reviews:
       type: {collection: {resourceName: review}}
-      /{objectId}:
+      /{reviewId}:
         type: {member: {objectType: review}}
 
 # Artists
-/artists:
+/persons:
   type: {collection: {resourceName: person}}
-  /{objectId}:
+  /{personId}:
     type: {member: {objectType: person}}
     /movies:
       type: {collection: {resourceName: movie}}
-      /{objectId}:
+      /{movieId}:
         type: {member: {objectType: movie}}
 
 documentation:
