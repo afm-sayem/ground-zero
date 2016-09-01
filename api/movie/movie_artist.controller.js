@@ -14,7 +14,7 @@ class MovieArtistController extends BaseController {
     try {
       const movie = await Movie.query()
         .findById(req.params.id);
-      if (!movie) return utilities.throwNotFonud(res);
+      if (!movie) return utilities.throwNotFound(res);
       await movie
         .$relatedQuery('artists')
         .relate(req.body);

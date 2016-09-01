@@ -1,11 +1,11 @@
 const express = require('express');
 const controller = require('./user.controller');
-const processQuery = require('../../components/utilities').processQuery;
-const authUtils = require('../../auth/authutils');
+const processQuery = require('../../components/middlewares/process-query');
+const ensureAuthenticated = require('../../components/middlewares/authenticate');
 
-const router = express.Router();
+const router = new express.Router();
 
-router.use(authUtils.ensureAuthenticated);
+router.use(ensureAuthenticated);
 
 router.get('/me', controller.show);
 router.get('/', processQuery, controller.index);

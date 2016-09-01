@@ -1,4 +1,5 @@
 const findQuery = require('objection-find');
+const searchFilter = require('../../components/filters/text-search');
 const utilities = require('../../components/utilities');
 
 class BaseController {
@@ -25,7 +26,7 @@ class BaseController {
   index(req, res) {
     return findQuery(this.model)
       .allowEager(this.eager)
-      .registerFilter('search', utilities.searchFilter)
+      .registerFilter('search', searchFilter)
       .build(req.query.where)
       .eager(req.query.include)
       .orderBy(req.query.sort.by, req.query.sort.order)

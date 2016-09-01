@@ -1,5 +1,5 @@
 const express = require('express');
-const processQuery = require('../../components/utilities').processQuery;
+const processQuery = require('../../components/middlewares/process-query');
 const Movie = require('./movie.model');
 const Artist = require('../person/person.model');
 const Review = require('../review/review.model');
