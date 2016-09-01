@@ -25,16 +25,16 @@ exports.authenticate = function (req, res) {
       return res.status(500).send({ message: token.error.message });
     }
 
-    request.get({
+    return request.get({
       url: config.facebook.graphUrl,
       qs: token,
       json: true,
-    }, (err, response, profile) => {
+    }, (reqerr, reqres, profile) => {
       User.query()
         .where('facebook', profile.id)
-        .then((user) => {
+        .then((resUser) => {
           if (req.headers.authorization) {
-            if (user.length !== 0) {
+            if (resUser.length) {
               res.status(409).send({
                 message: 'There is already a facebook account that belongs to you',
               });
@@ -43,20 +43,19 @@ exports.authenticate = function (req, res) {
             const secretToken = req.headers.authorization.split(' ')[1];
             const payload = jwt.decode(secretToken, config.token);
 
-            User.query()
+            return User.query()
               .findById(payload.sub)
               .then((user) => {
                 if (!user) {
                   return res.status(404).send({ message: 'User not found' });
                 }
-                createUser(res, profile.name, profile.id, 1);
+                return createUser(res, profile.name, profile.id, 1);
               });
-          } else {
-            if (user.length !== 0) {
-              return res.status(201).send({ token: authUtils.createJWT(user) });
-            }
-            createUser(res, profile.name, profile.id, 1);
           }
+          if (resUser.length) {
+            return res.status(201).send({ token: authUtils.createJWT(resUser) });
+          }
+          return createUser(res, profile.name, profile.id, 1);
         });
     });
   });
