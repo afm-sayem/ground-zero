@@ -16,9 +16,9 @@ class MovieReviewController extends BaseController {
         .findById(req.params.id);
       if (!movie) return utilities.throwNotFonud(res);
 
-      await movie.$relatedQuery('reviews')
+      const review = await movie.$relatedQuery('reviews')
         .insert(req.body);
-      return utilities.responseHandler(null, res, 201);
+      return utilities.responseHandler(null, res, 201, review);
     } catch (err) {
       return utilities.responseHandler(err, res);
     }

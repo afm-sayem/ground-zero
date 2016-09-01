@@ -81,6 +81,15 @@ hooks.after('GET /movies/{movieId}/reviews -> 200', (test, done) => {
 
 //-----------------------------------------------------------------------------
 hooks.before('POST /movies/{movieId}/reviews -> 201', (test, done) => {
+  test.request.params = {
+    movieId: 1,
+  };
+
+  test.request.body = {
+    title: 'Great movie!',
+    movie_id: 1,
+    recommended: true,
+  };
   done();
 });
 
