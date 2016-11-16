@@ -7,6 +7,7 @@ function index(req, res) {
     .build(req.query.filter)
     .eager(req.query.include)
     .omit('hash')
+    .skipUndefined()
     .orderBy(req.query.sort.by, req.query.sort.order)
     .page(req.query.page.number, req.query.page.size)
     .then(users => utilities.responseHandler(null, res, 200, users))

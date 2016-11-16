@@ -28,6 +28,7 @@ class BaseController {
       .allowEager(this.eager)
       .registerFilter('search', searchFilter)
       .build(req.query.where)
+      .skipUndefined()
       .eager(req.query.include)
       .orderBy(req.query.sort.by, req.query.sort.order)
       .page(req.query.page.number, req.query.page.size)

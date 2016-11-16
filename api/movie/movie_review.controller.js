@@ -29,6 +29,7 @@ class MovieReviewController extends BaseController {
       .build(req.query.filter)
       .where('movie_id', req.params.id)
       .eager(req.query.include)
+      .skipUndefined()
       .orderBy(req.query.sort.by, req.query.sort.request)
       .page(req.query.page.number, req.query.page.size)
       .then(requests => utilities.responseHandler(null, res, 200, requests))

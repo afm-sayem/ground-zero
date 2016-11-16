@@ -30,9 +30,9 @@ class MovieArtistController extends BaseController {
       .join('person_movie', 'person.id', 'person_movie.person_id')
       .where('movie_id', req.params.id)
       .eager(req.query.include)
+      .skipUndefined()
       .orderBy(req.query.sort.by, req.query.sort.request)
       .page(req.query.page.number, req.query.page.size)
-      .debug()
       .then(requests => utilities.responseHandler(null, res, 200, requests))
       .catch(err => utilities.responseHandler(err, res));
   }
