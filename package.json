@@ -1,25 +1,19 @@
 {
-  "name": "fullstack-es6",
+  "name": "ground-zero",
   "version": "0.0.1",
   "description": "seed",
   "main": "app.js",
   "scripts": {
-    "dev": "nodemon app.js --exec babel-node",
-    "postinstall": "npm run build",
-    "start": "node dist/app.js",
-    "build": "rm -rf dist && babel . --ignore node_modules --copy-files -d dist",
-    "serve": "node dist/app.js",
-    "doc": "rm -rf docs/index.html && raml2html -i docs/api.raml -o docs/index.html && http-server -p 8898 docs"
+    "dev": "nodemon --harmony-async-await app.js",
+    "start": "node --harmony-async-await app.js",
+    "doc": "rm -f docs/index.html && raml2html -i docs/api.raml -o docs/index.html && live-server --port=8898 --open=docs"
   },
   "author": "yourname",
   "engines": {
-    "node": "6.3.1"
+    "node": "7.1.0"
   },
   "dependencies": {
     "aws-sdk": "^2.4.9",
-    "babel-cli": "^6.11.4",
-    "babel-preset-es2016": "^6.11.3",
-    "babel-preset-stage-3": "^6.11.0",
     "bcrypt": "^0.8.7",
     "bluebird": "^3.4.1",
     "body-parser": "^1.15.2",
@@ -47,7 +41,6 @@
   },
   "devDependencies": {
     "abao": "^0.4.0-beta.8",
-    "babel-eslint": "^6.1.2",
     "eslint": "^3.1.1",
     "eslint-config-airbnb-base": "^5.0.0",
     "eslint-plugin-import": "^1.11.1",

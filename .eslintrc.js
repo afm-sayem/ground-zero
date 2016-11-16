@@ -1,13 +1,7 @@
 module.exports = {
-  "env": {
-    "browser": true,
-    "es6": true,
-    "node": true
-  },
-  "parser": "babel-eslint",
   "extends": "airbnb-base",
   "parserOptions": {
-    "sourceType": "module"
+    "ecmaVersion": 8 // or 2017
   },
   "rules": {
     "generator-star-spacing": 0
