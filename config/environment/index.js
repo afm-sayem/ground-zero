@@ -16,6 +16,7 @@ const all = {
   token: process.env.TOKEN_SECRET,
   host: process.env.HOST,
   port: process.env.PORT,
+  redis: process.env.REDIS_URL,
   mail: {
     smtp: process.env.SMTP_CONNECTION,
     registration: process.env.REGISTRATION_EMAIL,
