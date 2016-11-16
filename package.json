@@ -36,6 +36,7 @@
     "pg": "^6.1.0",
     "raml2html": "^3.0.1",
     "redis": "^2.6.3",
+    "request": "^2.78.0",
     "request-promise": "^4.1.1",
     "uuid": "^2.0.3"
   },
