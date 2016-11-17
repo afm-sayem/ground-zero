@@ -4,14 +4,18 @@ const BaseController = require('../base/base.controller');
 const Movie = require('./movie.model');
 const Review = require('../review/review.model');
 
-const additionaleProperties = [{
-  model: Movie,
-  prop: 'movie_id',
-  include: true,
-  checkExistence: true,
-}];
+const data = {
+  additionalProperties: [{
+    model: Movie,
+    prop: 'movie_id',
+    include: true,
+    checkExistence: true,
+  }],
+  userField: 'user_id',
+};
 
-const controller = new BaseController(Review, 'review_id', additionaleProperties);
+
+const controller = new BaseController(Review, 'review_id', data);
 const router = new express.Router({ mergeParams: true });
 
 router.get('/', processQuery, controller.index.bind(controller));

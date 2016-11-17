@@ -5,7 +5,7 @@ const BaseController = require('../base/base.controller');
 const artistRouter = require('./movie_person');
 const reviewRouter = require('./movie_review');
 
-const controller = new BaseController(Movie);
+const controller = new BaseController(Movie, 'movie_id');
 
 const router = new express.Router();
 
