@@ -4,7 +4,6 @@ exports.up = function (knex) {
       table.increments('id').primary();
       table.integer('movie_id').unsigned().references('id').inTable('movie')
         .onDelete('CASCADE');
-      table.string('title');
       table.text('description');
       table.boolean('recommended');
       table.timestamps();
