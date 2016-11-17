@@ -1,6 +1,6 @@
 const express = require('express');
 const Person = require('./person.model');
-const BaseController = require('../core/base.controller');
+const BaseController = require('../base/base.controller');
 const processQuery = require('../../components/middlewares/process-query');
 
 const controller = new BaseController(Person);

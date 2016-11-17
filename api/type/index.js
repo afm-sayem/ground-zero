@@ -1,6 +1,6 @@
 const express = require('express');
 const Type = require('./type.model');
-const BaseController = require('../core/base.controller');
+const BaseController = require('../base/base.controller');
 const processQuery = require('../../components/filters/text-search');
 
 const controller = new BaseController(Type);

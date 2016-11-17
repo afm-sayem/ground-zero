@@ -1,6 +1,6 @@
 const express = require('express');
 const processQuery = require('../../components/middlewares/process-query');
-const BaseController = require('../core/base.controller');
+const BaseController = require('../base/base.controller');
 const Movie = require('./movie.model');
 const Review = require('../review/review.model');
 
