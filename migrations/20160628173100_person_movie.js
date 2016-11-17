@@ -1,6 +1,6 @@
 exports.up = function (knex) {
   return knex.schema
-    .createTable('person_movie', (table) => {
+    .createTable('movie_person', (table) => {
       table.increments('id').primary();
       table.integer('person_id').unsigned().references('id').inTable('person')
         .onDelete('CASCADE');

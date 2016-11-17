@@ -4,7 +4,7 @@ const schema = require('./movie_person.schema.json');
 
 class MoviePerson extends Model {
   static get tableName() {
-    return 'person_movie';
+    return 'movie_person';
   }
 
   static get jsonSchema() {
@@ -17,7 +17,7 @@ class MoviePerson extends Model {
         relation: Model.BelongsToOneRelation,
         modelClass: path.normalize(`${__dirname}/../movie/movie.model`),
         join: {
-          from: 'person_movie.movie_id',
+          from: 'movie_person.movie_id',
           to: 'movie.id',
         },
       },
@@ -25,7 +25,7 @@ class MoviePerson extends Model {
         relation: Model.BelongsToOneRelation,
         modelClass: path.normalize(`${__dirname}/../person/person.model`),
         join: {
-          from: 'person_movie.person_id',
+          from: 'movie_person.person_id',
           to: 'person.id',
         },
       },
