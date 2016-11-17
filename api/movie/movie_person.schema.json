@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "required": ["person_id", "movie_id"],
+
+  "properties": {
+    "person_id": {
+      "type": "integer",
+      "minimum": 1,
+      "faker": { "random.number": [{"max": 5, "min": 1}]}
+    },
+    "movie_id": {
+      "type": "integer",
+      "minimum": 1,
+      "faker": { "random.number": [{"max": 5, "min": 1}]}
+    },
+    "character": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 255,
+      "faker": "lorem.word"
+    }
+  }
+}
