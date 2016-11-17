@@ -8,6 +8,10 @@
       "type": "integer",
       "faker": { "random.number": [{"max": 5, "min": 1}]}
     },
+    "user_id": {
+      "type": "integer",
+      "faker": { "random.number": [{"max": 5, "min": 1}]}
+    },
     "recommended": {
       "type": "boolean",
       "random": "random.boolean"

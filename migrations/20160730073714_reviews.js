@@ -1,16 +1,18 @@
-exports.up = function (knex) {
+function up(knex) {
   return knex.schema
     .createTable('review', (table) => {
       table.increments('id').primary();
-      table.integer('movie_id').unsigned().references('id').inTable('movie')
-        .onDelete('CASCADE');
+      table.integer('movie_id').unsigned().references('id').inTable('movie');
+      table.integer('user_id').unsigned().references('id').inTable('user');
       table.text('description');
       table.boolean('recommended');
       table.timestamps();
     });
-};
+}
 
-exports.down = function (knex) {
+function down(knex) {
   return knex.schema
     .dropTableIfExists('review');
-};
+}
+
+module.exports = { up, down };
