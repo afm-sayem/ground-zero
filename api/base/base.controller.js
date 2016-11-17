@@ -1,6 +1,7 @@
 const findQuery = require('objection-find');
 const searchFilter = require('../../components/filters/text-search');
 const utilities = require('../../components/utilities');
+const filterEagerData = require('../../components/filters/filter-eager');
 const Promise = require('bluebird');
 
 function getParameterFilters(req, filterProperties) {
@@ -42,11 +43,14 @@ function getAdditionalProperties(req, data) {
 }
 
 class BaseController {
-  constructor(model, id, additionalProperties, userField) {
+  constructor(model, id, data) {
     this.model = model;
     this.id = id;
-    this.additionalProperties = additionalProperties;
-    this.userField = userField;
+    if (data) {
+      this.additionalProperties = data.additionalProperties;
+      this.userField = data.userField;
+      this.filterEager = data.filterEager;
+    }
   }
 
   async create(req, res) {
@@ -60,7 +64,9 @@ class BaseController {
     }
 
     if (this.userField) {
-      data[this.userField] = req.user.id;
+      if (req.user) {
+        data[this.userField] = req.user.id;
+      }
     }
 
     return this.model.query()
@@ -77,14 +83,23 @@ class BaseController {
   }
 
   index(req, res) {
-    return findQuery(this.model)
+    const query = findQuery(this.model)
       .registerFilter('search', searchFilter)
       .build(req.query.where)
       .skipUndefined()
       .where(getParameterFilters(req, this.additionalProperties))
       .eager(req.query.include)
       .orderBy(req.query.sort.by, req.query.sort.order)
-      .page(req.query.page.number, req.query.page.size)
+      .page(req.query.page.number, req.query.page.size);
+
+    if (this.filterEager) {
+      this.filterEager.reduce((memo, data) => {
+        return query.filterEager(data.relation,
+            filterEagerData(req.query, data.table, data.property));
+      }, query);
+    }
+
+    query
       .then(items => utilities.responseHandler(null, res, 200, items))
       .catch(err => utilities.responseHandler(err, res));
   }
