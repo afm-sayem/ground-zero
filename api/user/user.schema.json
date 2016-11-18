@@ -10,8 +10,8 @@
       "maxLength": 255,
       "faker": "name.findName"
     },
-    "hash": {
-      "type": "string",
+    "role": {
+      "enum": ["admin"],
       "minLength": 1,
       "maxLength": 255,
       "chance": "hash"
@@ -24,12 +24,6 @@
       "faker": "internet.email"
     },
     "facebook": {
-      "type": "string",
-      "minLength": 1,
-      "maxLength": 255,
-      "faker": "random.word"
-    },
-    "google": {
       "type": "string",
       "minLength": 1,
       "maxLength": 255,

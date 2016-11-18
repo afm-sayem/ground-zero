@@ -34,10 +34,10 @@
     },
     "released": {
       "type": "string",
+      "format": "date-time",
       "minLength": 1,
       "maxLength": 255,
-      "format": "date-time",
-      "faker": "date.past"
+      "chance": { "date": [{"string": true}]}
     }
   }
 }

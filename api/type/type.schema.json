@@ -9,6 +9,11 @@
       "minLength": 1,
       "maxLength": 255,
       "faker": "random.word"
+    },
+    "parent_id": {
+      "type": "integer",
+      "minimum": 1,
+      "faker": { "random.number": [{"max": 5, "min": 1}]}
     }
   }
 }
