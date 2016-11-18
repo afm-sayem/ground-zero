@@ -1,5 +1,3 @@
-'use strict';
-
 const express = require('express');
 const facebook = require('./facebook');
 const local = require('./auth.controller');
