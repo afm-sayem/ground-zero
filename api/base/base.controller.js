@@ -106,8 +106,8 @@ class BaseController {
 
   show(req, res) {
     return this.model.query()
-      .findById(req.params[this.id])
       .skipUndefined()
+      .findById(req.params[this.id])
       .where(getParameterFilters(req, this.additionalProperties))
       .eager(req.query.eager)
       .then((item) => {

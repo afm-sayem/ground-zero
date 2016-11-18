@@ -1,6 +1,7 @@
 const express = require('express');
 const processQuery = require('../../components/middlewares/process-query');
 const authenticate = require('../../components/middlewares/authenticate');
+const hasPermission = require('../../components/middlewares/has-permission');
 const BaseController = require('../base/base.controller');
 const Movie = require('./movie.model');
 const Review = require('../review/review.model');
@@ -23,7 +24,14 @@ router.get('/', processQuery, controller.index.bind(controller));
 router.get('/:review_id', controller.show.bind(controller));
 
 router.use(authenticate);
+
 router.post('/', controller.create.bind(controller));
+
+router.use(hasPermission.bind(undefined, {
+  model: Review,
+  userKey: 'user_id',
+  resourceId: 'review_id',
+}));
 router.put('/:review_id', controller.update.bind(controller));
 router.patch('/:review_id', controller.update.bind(controller));
 router.delete('/:review_id', controller.destroy.bind(controller));

@@ -12,9 +12,9 @@ class UserController extends BaseController {
   index(req, res) {
     return findQuery(this.model)
       .build(req.query.filter)
+      .skipUndefined()
       .eager(req.query.include)
       .omit('hash')
-      .skipUndefined()
       .orderBy(req.query.sort.by, req.query.sort.order)
       .page(req.query.page.number, req.query.page.size)
       .then(users => utilities.responseHandler(null, res, 200, users))
@@ -47,7 +47,8 @@ class UserController extends BaseController {
       .update({ [provider]: null })
       .then((user) => {
         res.status(200).send(user);
-      });
+      })
+      .catch(err => utilities.responseHandler(err, res));
   }
 }
 
