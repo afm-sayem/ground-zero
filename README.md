@@ -1,23 +1,29 @@
 [![Dependency Status](https://david-dm.org/afm-sayem/api-server-seed.svg)](https://david-dm.org/afm-sayem/api-server-seed)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)](https://opensource.org/licenses/MIT)
 
-API seed project put together using Express, [ObjectionJS](https://github.com/Vincit/objection.js) and PostgreSQL.
+Ground Zero is a collection of features implemented on top of Express with the help of [ObjectionJS](https://github.com/Vincit/objection.js) and PostgreSQL. The API stores and serves data for a movie review site.
 
-Try the api with some [sample requests](https://github.com/afm-sayem/api-server-seed/wiki/Sample-API-Requests)
+Play with the API with some [sample requests](https://github.com/afm-sayem/api-server-seed/wiki/Sample-API-Requests).
 
-####Features:
+### Features:
 
-- Authentication
-- User verification
+- User registration with verification
+- Token based authentication
+- Permissions
+- Dynamic query filters
 - Full-text search
-- Email
-- Worker
-- API Docs using RAML specification
-- File uploading
+- Geolocation
+- Browsable API documentation
+- *Planned*: Recommendations
 
-###Prerequisites:
+### API Design:
+The filtering API is using [objection-find](http://github.com/vincit/objection-find) which exposes a powerful queryable API to the consumers. The API consumer can dynamcally filter on the properties of any resource they have access to without a single modification done to the server.
 
- - Install [nvm](https://github.com/creationix/nvm) and then `nvm install node`.
+All query parameters are grouped in four classes: filters, pagination, inclusions and ordering. There's an excellent discussion in [one of the issues in Ghost](https://github.com/TryGhost/Ghost/issues/5463) where they discuss implementing this pattern to let the consumers access the API easily.
+
+### Getting started:
+
+ - Install [nvm](https://github.com/creationix/nvm) and then `nvm install node` (*minimum version: 7.x*).
  - Add `node_modules` to your path variable. For example, for `zsh`, add this to your `.zshrc`: `export PATH="$PATH:./node_modules/.bin"`
  - Install project dependencies: `npm install`
  - Install [PostgreSQL](https://www.postgresql.org/download/) and create a database.
@@ -27,14 +33,4 @@ Try the api with some [sample requests](https://github.com/afm-sayem/api-server-
  - Populate tables with data: `knex seed:run`
  - Run the server: `npm run dev`
  - Test the API: http://localhost:3000/movies
- 
- ###Common query parameters:
-
- To generate and read the api documentation, run `npm run doc` and access `http://localhost:8898` from your browser
- 
- - All the resource endpoints(eg; /api/movies) accept the following query parameters: `where`, `include`, `page` and `sort`
- - `where` is used query a resource end point to get the list of desired resources. For instance, to get a list of movies where dierctorId is 1, your query would look like: `/api/movies?where[directorId:eq]=1`. The filter query format is followed by patterns listed in [objection-find](https://github.com/vincit/objection-find) package.
- - `include` is used to get relationship data of a resource. For example, to get the director information of the movies included in the movie list, the query would look like: `/api/movies?include=[director]`. You can request to add multiple information together. For example, to include both the movie type and it's director to the movies list, your request would look like: `/api/movies?include=[director,type]`
- - `page` is used for paging the documents. By default, if no `page[size]` is mentioned, it'll return 10 documents. To skip to a different page you need to define `page[number]`
- - `sort` is responsible for sorting by a key. By default, if no sort order is mentioned, the returned data will be sorted by id in descending order. To sort movies by a directorId in descending order, your request would look like, `/api/movies?sort=-directorId`
 
