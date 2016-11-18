@@ -11,30 +11,15 @@ const moviePersonSchema = require('../api/movie/movie_person.schema.json');
 
 
 function cleanData(data, schema) {
-  const cleaned = Object.assign(data);
-  data.forEach((item, idx) => {
-    Object.keys(item).forEach((key) => {
-      // if the key already exists in the cleaned object
-      const props = schema.properties;
-      if (!Object.prototype.hasOwnProperty.call(props, key)) {
-        delete cleaned[idx][key];
-      }
+  return data.map((item) => {
+    return _.pickBy(item, (val, key) => {
+      return Object.prototype.hasOwnProperty.call(schema.properties, key);
     });
   });
-  return cleaned;
 }
 
 function unique(data, prop) {
-  const lookup = Array.from(new Set(data.map(val => val[prop])));
-  const uniqueList = [];
-  data.forEach((item) => {
-    const idx = lookup.indexOf(item[prop]);
-    if (idx !== -1) {
-      uniqueList.push(item);
-      lookup.splice(idx, 1);
-    }
-  });
-  return uniqueList;
+  return _.uniqBy(data, prop);
 }
 
 function getRecords(count, schema) {
