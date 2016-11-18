@@ -11,7 +11,7 @@ const router = new express.Router();
 
 router.get('/', processQuery, controller.index.bind(controller));
 router.get('/:movie_id', controller.show.bind(controller));
-router.post('/movie_id', controller.create.bind(controller));
+router.post('/', controller.create.bind(controller));
 router.put('/:movie_id', controller.update.bind(controller));
 router.patch('/:movie_id', controller.update.bind(controller));
 router.delete('/:movie_id', controller.destroy.bind(controller));
