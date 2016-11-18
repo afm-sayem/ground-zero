@@ -1,12 +1,12 @@
 const express = require('express');
 const processQuery = require('../../components/middlewares/process-query');
-const ensureAuthenticated = require('../../components/middlewares/authenticate');
+const authenticate = require('../../components/middlewares/authenticate');
 const UserController = require('./user.controller');
 
 const router = new express.Router();
 const controller = new UserController();
 
-router.use(ensureAuthenticated);
+router.use(authenticate);
 
 router.get('/me', controller.show.bind(controller));
 router.get('/', processQuery, controller.index.bind(controller));
