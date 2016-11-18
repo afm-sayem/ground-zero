@@ -1,4 +1,3 @@
-
 exports.up = function (knex) {
   return knex.schema
     .createTable('person', (table) => {
@@ -7,7 +6,8 @@ exports.up = function (knex) {
     })
     .createTable('type', (table) => {
       table.increments('id').primary();
-      table.string('name');
+      table.string('name').unique();
+      table.integer('parent_id').unsigned().references('id').inTable('type');
     })
     .createTable('movie', (table) => {
       table.increments('id').primary();
@@ -21,7 +21,11 @@ exports.up = function (knex) {
     .createTable('user', (table) => {
       table.increments('id').primary();
       table.string('name');
-      table.string('facebook');
+      table.string('email').unique();
+      table.string('hash');
+      table.string('salt');
+      table.string('facebook').unique();
+      table.enu('role', ['admin']);
     });
 };
 
