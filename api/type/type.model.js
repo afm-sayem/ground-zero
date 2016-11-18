@@ -9,7 +9,6 @@ class Type extends Model {
   static get jsonSchema() {
     return schema;
   }
-
 }
 
 module.exports = Type;
