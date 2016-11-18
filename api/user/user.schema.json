@@ -11,7 +11,10 @@
       "faker": "name.findName"
     },
     "role": {
-      "enum": ["admin"],
+      "enum": ["admin"]
+    },
+    "hash": {
+      "type": "string",
       "minLength": 1,
       "maxLength": 255,
       "chance": "hash"

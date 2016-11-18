@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
   "type": "object",
-  "required": ["recommended", "movie_id"],
+  "required": ["recommended", "movie_id", "user_id"],
 
   "properties": {
     "movie_id": {
