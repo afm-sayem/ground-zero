@@ -7,27 +7,57 @@ const personSchema = require('../api/person/person.schema.json');
 const typeSchema = require('../api/type/type.schema.json');
 const userSchema = require('../api/user/user.schema.json');
 const reviewSchema = require('../api/review/review.schema.json');
+const moviePersonSchema = require('../api/movie/movie_person.schema.json');
 
+
+function cleanData(data, schema) {
+  const cleaned = Object.assign(data);
+  data.forEach((item, idx) => {
+    Object.keys(item).forEach((key) => {
+      // if the key already exists in the cleaned object
+      const props = schema.properties;
+      if (!Object.prototype.hasOwnProperty.call(props, key)) {
+        delete cleaned[idx][key];
+      }
+    });
+  });
+  return cleaned;
+}
+
+function unique(data, prop) {
+  const lookup = Array.from(new Set(data.map(val => val[prop])));
+  const uniqueList = [];
+  data.forEach((item) => {
+    const idx = lookup.indexOf(item[prop]);
+    if (idx !== -1) {
+      uniqueList.push(item);
+      lookup.splice(idx, 1);
+    }
+  });
+  return uniqueList;
+}
 
 function getRecords(count, schema) {
-  return _.times(count, jsf.bind(void 0, schema));
+  let data = _.times(count, jsf.bind(undefined, schema));
+  data = cleanData(data, schema);
+  return data;
 }
 
 // TODO: Prompt user before clearing out schemas
 // Delete ManyToMany and OneToMany tables automatically
 function truncate(knex, Promise, tables) {
   return Promise.each(tables,
-      (table) => knex.raw(`TRUNCATE TABLE ${table} RESTART IDENTITY CASCADE`));
+      table => knex.raw(`TRUNCATE TABLE ${table} RESTART IDENTITY CASCADE`));
 }
 
-const tables = ['movie', 'person', 'type', '"user"', 'review'];
+const tables = ['movie', 'person', 'type', '"user"', 'review', 'movie_person'];
 
-exports.seed = function (knex, Promise) {
+function seed(knex, Promise) {
   const numberOfRecords = 10;
   return truncate(knex, Promise, tables)
     .then(() => Promise.all([
       knex('person').insert(getRecords(numberOfRecords, personSchema)),
-      knex('type').insert(getRecords(numberOfRecords, typeSchema)),
+      knex('type').insert(unique(getRecords(numberOfRecords, typeSchema), 'name')),
     ]))
     .then(() => Promise.all([
       knex('movie').insert(getRecords(numberOfRecords, movieSchema)),
@@ -35,6 +65,8 @@ exports.seed = function (knex, Promise) {
     ]))
     .then(() => Promise.all([
       knex('review').insert(getRecords(numberOfRecords, reviewSchema)),
+      knex('movie_person').insert(getRecords(numberOfRecords, moviePersonSchema)),
     ]));
-};
+}
 
+module.exports = { seed };
