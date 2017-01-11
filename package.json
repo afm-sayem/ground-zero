@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon --harmony-async-await app.js",
     "start": "node --harmony-async-await app.js",
-    "doc": "rm -f docs/index.html && raml2html -i docs/api.raml -o docs/index.html && live-server --port=8898 --open=docs"
+    "doc": "rm -f docs/index.html && raml2html -i docs/api.raml -o docs/index.html && http-server docs --port=8898"
   },
   "author": "yourname",
   "engines": {
